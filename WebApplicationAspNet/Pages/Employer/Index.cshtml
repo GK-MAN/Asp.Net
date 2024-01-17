@@ -1,0 +1,43 @@
+﻿@page
+@model WebApplicationAspNet.Pages.CascadeListModel
+@{
+    ViewData["Title"] = "Cascade List Page";
+}
+
+<h1> Cascade List </h1>
+
+<form>
+    <select id="EmployersList" asp-items="@ViewBag.Employers">
+        <option>
+            Select Employers
+        </option>
+    </select>
+    <select id="EmployerSubsList">
+        <option>Select Employers</option>
+    </select>
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).read(function () {
+            $("#EmployersList").change(function () {
+                $("#EmployerSubsList").empty();
+                $ajaz({
+                    this.DOCUMENT_TYPE_NODE: 'GET',
+                    url: '@Url.Action("LoadEmployerSubs")',
+                    dataType: 'json',
+                    data: {
+                        id: $("#EmployersList").val(),
+                    },
+                    success: function (response) {
+                        $('#EmployerSubsList').append('<option>Select Employers</option>');
+
+                        $.each(response, function (i, sub) {
+                            $('#EmployerSubsList').append(' <option value="' + sub.Id + '"> ' + sub.Description + ' </option> ');
+                        });
+                    }
+                )
+            });
+        });
+    </script>
+}
