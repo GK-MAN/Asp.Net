@@ -31,8 +31,8 @@ namespace WebApplicationAspNet.Controllers
         public JsonResult LoadEmployerSubs(int Id) 
         {
             int id = Convert.ToInt32(Id);
-            //var employer_subs = _context.EmployerSubs.Where(z => z.EmployerId = id).ToList();
-            //return Json(new SelectList(employer_subs, "Id", "EmployerId", "Description", "ShortDescription");
+            var employer_subs = _context.EmployerSubs.Where(z => z.EmployerId == id).ToList();
+            return Json(new SelectList(employer_subs, "Id", "EmployerId", "Description", "ShortDescription");
             return Json(id);
         }
 
